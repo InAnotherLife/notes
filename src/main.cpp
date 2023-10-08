@@ -3,24 +3,26 @@
 int main() {
   std::cout << "Программа \"Заметки\"" << std::endl;
   std::cout << std::endl;
-  my::Notes notes;
-  notes.LoadNotes();
+  // my::Notes notes;
+  my::Notes* notes = new my::Notes();
+  notes->LoadNotes();
   size_t menu;
   while (true) {
-    notes.ShowMenu();
+    notes->ShowMenu();
     std::cin >> menu;
     std::cout << "Выбран пункт меню: " << menu << std::endl;
     if (menu == 1) {
-      notes.ShowNotes();
+      notes->ShowNotes();
     } else if (menu == 2) {
-      notes.CreateNote();
+      notes->CreateNote();
     } else if (menu == 3) {
-      notes.EditNote();
+      notes->EditNote();
     } else if (menu == 4) {
-      notes.DelNote();
+      notes->DelNote();
     } else if (menu == 5) {
-      notes.SaveNotes();
+      notes->SaveNotes();
     } else if (menu == 0) {
+      delete notes;
       std::cout << "Выход из программы." << std::endl;
       exit(0);
     } else {

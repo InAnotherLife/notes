@@ -19,7 +19,7 @@ struct Note {
 
 class Notes {
  public:
-  Notes() : read_file_(false){};
+  Notes() : read_file_(false), file_name_("notes.txt"){};
   ~Notes(){};
   void ShowMenu();
   void ValidateFile(const size_t amount_notes);
@@ -35,7 +35,7 @@ class Notes {
  private:
   std::vector<Note> notes_;
   bool read_file_;
-  std::string file_name_ = "notes.txt";
+  std::string file_name_;
   std::string GetDateTime();
 };
 
