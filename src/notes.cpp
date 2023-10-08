@@ -67,7 +67,7 @@ bool Notes::CheckReadFile() {
 }
 
 void Notes::ShowNotes() {
-  if (CheckReadFile() && !notes_.empty()) {
+  if (CheckReadFile()) {
     std::cout << std::endl;
     for (size_t i = 0; i < notes_.size(); i++) {
       std::cout << "Заметка " << i + 1 << std::endl;
