@@ -106,10 +106,6 @@ void Notes::CreateNote() {
   }
 }
 
-void Notes::ShowNotesAmount() {
-  std::cout << "Всего заметок: " << notes_.size() << std::endl;
-}
-
 bool Notes::CheckNoteNum(size_t note_num) {
   bool res = true;
   if (note_num == 0 || note_num > notes_.size()) {
@@ -122,7 +118,7 @@ bool Notes::CheckNoteNum(size_t note_num) {
 
 void Notes::EditNote() {
   if (CheckReadFile()) {
-    ShowNotesAmount();
+    std::cout << "Всего заметок: " << notes_.size() << std::endl;
     std::cout << "Введите номер заметки для редактирования:" << std::endl;
     size_t note_num;
     std::cin >> note_num;
@@ -145,7 +141,7 @@ void Notes::EditNote() {
 
 void Notes::DelNote() {
   if (CheckReadFile()) {
-    ShowNotesAmount();
+    std::cout << "Всего заметок: " << notes_.size() << std::endl;
     std::cout << "Введите номер заметки для удаления:" << std::endl;
     size_t note_num;
     std::cin >> note_num;
