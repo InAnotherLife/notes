@@ -18,7 +18,8 @@ void Notes::ValidateFile(const size_t amount_notes) {
     std::cout << "Ошибка! Заметки отсутствуют. Создайте заметку." << std::endl;
   } else if (amount_notes != notes_.size()) {
     notes_.clear();
-    std::cout << "Ошибка! Файл с заметками поврежден." << std::endl;
+    std::cout << "Ошибка! Файл с заметками поврежден. Создайте заметку."
+              << std::endl;
   } else {
     read_file_ = true;
     std::cout << "Заметки успешно загружены из файла." << std::endl;
@@ -50,7 +51,8 @@ void Notes::LoadNotes() {
     file.close();
     ValidateFile(static_cast<size_t>(std::atoi(amount_notes.c_str())));
   } else {
-    std::cout << "Ошибка! Не удалось открыть файл." << std::endl;
+    std::cout << "Ошибка! Не удалось открыть файл. Создайте заметку."
+              << std::endl;
   }
   std::cout << std::endl;
 }
