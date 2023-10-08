@@ -23,6 +23,7 @@ class Notes {
   ~Notes() { notes_.clear(); };
   void ShowMenu();
   void LoadNotes();
+  bool CheckReadFile();
   void ShowNotes();
   void CreateNote();
   void EditNote();

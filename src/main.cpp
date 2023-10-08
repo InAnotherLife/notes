@@ -12,19 +12,14 @@ int main() {
     if (menu == 1) {
       notes.LoadNotes();
     } else if (menu == 2) {
-      notes.LoadNotes();
       notes.ShowNotes();
     } else if (menu == 3) {
-      notes.LoadNotes();
       notes.CreateNote();
     } else if (menu == 4) {
-      notes.LoadNotes();
       notes.EditNote();
     } else if (menu == 5) {
-      notes.LoadNotes();
       notes.DelNote();
     } else if (menu == 6) {
-      notes.LoadNotes();
       notes.SaveNotes();
     } else if (menu == 0) {
       std::cout << "Выход из программы." << std::endl;

@@ -49,8 +49,19 @@ void Notes::LoadNotes() {
   }
 }
 
+bool Notes::CheckReadFile() {
+  bool res = true;
+  if (!read_file_) {
+    res = false;
+    std::cout << "Ошибка! Необходимо загрузить заметки из файла." << std::endl;
+    std::cout << std::endl;
+  }
+  return res;
+}
+
 void Notes::ShowNotes() {
-  if (!notes_.empty()) {
+  if (CheckReadFile() && !notes_.empty()) {
+    std::cout << std::endl;
     for (size_t i = 0; i < notes_.size(); i++) {
       std::cout << "Заметка " << i + 1 << std::endl;
       std::cout << "Дата: " << notes_[i].date_time << std::endl;
@@ -71,69 +82,80 @@ std::string Notes::GetDateTime() {
 }
 
 void Notes::CreateNote() {
-  Note note;
-  std::cout << "Введите заголовок заметки:" << std::endl;
-  std::cin >> note.title;
-  std::cout << "Введите текст заметки:" << std::endl;
-  std::cin >> note.text;
-  note.date_time = GetDateTime();
-  notes_.push_back(note);
-  std::cout << "Заметка " << notes_.size() << " успешно создана." << std::endl;
-  std::cout << std::endl;
+  if (CheckReadFile()) {
+    Note note;
+    std::cout << "Введите заголовок заметки:" << std::endl;
+    std::cin >> note.title;
+    std::cout << "Введите текст заметки:" << std::endl;
+    std::cin >> note.text;
+    note.date_time = GetDateTime();
+    notes_.push_back(note);
+    std::cout << "Заметка " << notes_.size() << " успешно создана."
+              << std::endl;
+    std::cout << std::endl;
+  }
 }
 
 void Notes::EditNote() {
-  size_t notes_size = notes_.size();
-  std::cout << "Всего заметок: " << notes_size << std::endl;
-  std::cout << "Введите номер заметки для редактирования:" << std::endl;
-  size_t note_num;
-  std::cin >> note_num;
-  std::cout << "Выбрана заметка: " << note_num << std::endl;
-  if (note_num == 0 || note_num > notes_size) {
-    std::cout << "Ошибка! Недопустимый номер заметки." << std::endl;
-  } else {
-    std::string title;
-    std::cout << "Введите новый заголовок заметки:" << std::endl;
-    std::cin >> title;
-    std::string text;
-    std::cout << "Введите новый текст заметки:" << std::endl;
-    std::cin >> text;
-    notes_[note_num - 1].title = title;
-    notes_[note_num - 1].text = text;
+  if (CheckReadFile()) {
+    size_t notes_size = notes_.size();
+    std::cout << "Всего заметок: " << notes_size << std::endl;
+    std::cout << "Введите номер заметки для редактирования:" << std::endl;
+    size_t note_num;
+    std::cin >> note_num;
+    std::cout << "Выбрана заметка: " << note_num << std::endl;
+    if (note_num == 0 || note_num > notes_size) {
+      std::cout << "Ошибка! Недопустимый номер заметки." << std::endl;
+    } else {
+      std::string title;
+      std::cout << "Введите новый заголовок заметки:" << std::endl;
+      std::cin >> title;
+      std::string text;
+      std::cout << "Введите новый текст заметки:" << std::endl;
+      std::cin >> text;
+      notes_[note_num - 1].title = title;
+      notes_[note_num - 1].text = text;
+      std::cout << "Заметка " << note_num << " успешно отредактирована."
+                << std::endl;
+    }
+    std::cout << std::endl;
   }
-  std::cout << std::endl;
 }
 
 void Notes::DelNote() {
-  size_t notes_size = notes_.size();
-  std::cout << "Всего заметок: " << notes_size << std::endl;
-  std::cout << "Введите номер заметки для удаления:" << std::endl;
-  size_t note_num;
-  std::cin >> note_num;
-  std::cout << "Выбрана заметка: " << note_num << std::endl;
-  if (note_num == 0 || note_num > notes_size) {
-    std::cout << "Ошибка! Недопустимый номер заметки." << std::endl;
-  } else {
-    notes_.erase(notes_.begin() + note_num - 1);
-    std::cout << "Заметка " << note_num << " успешно удалена." << std::endl;
+  if (CheckReadFile()) {
+    size_t notes_size = notes_.size();
+    std::cout << "Всего заметок: " << notes_size << std::endl;
+    std::cout << "Введите номер заметки для удаления:" << std::endl;
+    size_t note_num;
+    std::cin >> note_num;
+    std::cout << "Выбрана заметка: " << note_num << std::endl;
+    if (note_num == 0 || note_num > notes_size) {
+      std::cout << "Ошибка! Недопустимый номер заметки." << std::endl;
+    } else {
+      notes_.erase(notes_.begin() + note_num - 1);
+      std::cout << "Заметка " << note_num << " успешно удалена." << std::endl;
+    }
+    std::cout << std::endl;
   }
-  std::cout << std::endl;
 }
 
 void Notes::SaveNotes() {
-  std::ofstream file(file_name_);
-  if (file.is_open()) {
-    for (const Note& note : notes_) {
-      file << note.date_time << std::endl;
-      file << note.title << std::endl;
-      file << note.text << std::endl << std::endl;
+  if (CheckReadFile()) {
+    std::ofstream file(file_name_);
+    if (file.is_open()) {
+      for (const Note& note : notes_) {
+        file << note.date_time << std::endl;
+        file << note.title << std::endl;
+        file << note.text << std::endl << std::endl;
+      }
+      file.close();
+      std::cout << "Заметки успешно сохранены в файл." << std::endl;
+    } else {
+      std::cout << "Ошибка! Не удалось открыть файл." << std::endl;
     }
-    file.close();
-    std::cout << "Заметки успешно сохранены в файл." << std::endl;
-  } else {
-    std::cout << "Ошибка! Не удалось открыть файл." << std::endl;
+    std::cout << std::endl;
   }
-  std::cout << std::endl;
 }
 
 }  // namespace my
