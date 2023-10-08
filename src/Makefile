@@ -23,7 +23,8 @@ uninstall:
 	rm -f $(FILENAME)
 
 clean:
-	rm -rf *.o *.a a.out *.gch ../.vscode
+	rm -f *.o *.a a.out *.gch
+	rm -rf ../.vscode
 
 rebuild: clean install
 
