@@ -3,7 +3,7 @@
 int main() {
   std::cout << "Программа \"Заметки\"" << std::endl;
   std::cout << std::endl;
-  my::Notes* notes = new my::Notes();
+  std::unique_ptr<my::Notes> notes = std::make_unique<my::Notes>();
   notes->LoadNotes();
   size_t menu;
   while (true) {
@@ -22,7 +22,6 @@ int main() {
       notes->SaveNotes();
     } else if (menu == 0) {
       std::cout << "Выход из программы." << std::endl;
-      delete notes;
       exit(0);
     } else {
       std::cout << "Ошибка! Недопустимый пункт меню." << std::endl;
