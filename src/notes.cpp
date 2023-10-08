@@ -84,9 +84,9 @@ void Notes::ShowNotes() {
 
 std::string Notes::GetDateTime() {
   std::time_t now = std::time(nullptr);
-  struct std::tm* time_info = std::localtime(&now);
+  struct std::tm* time = std::localtime(&now);
   std::ostringstream oss;
-  oss << std::put_time(time_info, "%H:%M %d.%m.%Y");
+  oss << std::put_time(time, "%H:%M %d.%m.%Y");
   std::string date_time = oss.str();
   return date_time;
 }
