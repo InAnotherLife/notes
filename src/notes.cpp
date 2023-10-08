@@ -105,13 +105,13 @@ void Notes::CreateNote() {
 
 void Notes::EditNote() {
   if (CheckReadFile()) {
-    size_t notes_size = notes_.size();
-    std::cout << "Всего заметок: " << notes_size << std::endl;
+    size_t notes_amount = notes_.size();
+    std::cout << "Всего заметок: " << notes_amount << std::endl;
     std::cout << "Введите номер заметки для редактирования:" << std::endl;
     size_t note_num;
     std::cin >> note_num;
     std::cout << "Выбрана заметка: " << note_num << std::endl;
-    if (note_num == 0 || note_num > notes_size) {
+    if (note_num == 0 || note_num > notes_amount) {
       std::cout << "Ошибка! Недопустимый номер заметки." << std::endl;
     } else {
       std::string title;
@@ -131,13 +131,13 @@ void Notes::EditNote() {
 
 void Notes::DelNote() {
   if (CheckReadFile()) {
-    size_t notes_size = notes_.size();
-    std::cout << "Всего заметок: " << notes_size << std::endl;
+    size_t notes_amount = notes_.size();
+    std::cout << "Всего заметок: " << notes_amount << std::endl;
     std::cout << "Введите номер заметки для удаления:" << std::endl;
     size_t note_num;
     std::cin >> note_num;
     std::cout << "Выбрана заметка: " << note_num << std::endl;
-    if (note_num == 0 || note_num > notes_size) {
+    if (note_num == 0 || note_num > notes_amount) {
       std::cout << "Ошибка! Недопустимый номер заметки." << std::endl;
     } else {
       notes_.erase(notes_.begin() + note_num - 1);

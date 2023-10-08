@@ -25,7 +25,7 @@ int main() {
       std::cout << "Выход из программы." << std::endl;
       exit(0);
     } else {
-      std::cout << "Ошибка! Недопустимый пункт меню!" << std::endl;
+      std::cout << "Ошибка! Недопустимый пункт меню." << std::endl;
       std::cout << std::endl;
     }
   }
