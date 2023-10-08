@@ -22,6 +22,8 @@ install:
 clean:
 	rm -rf *.o *.a a.out *.gch $(FILENAME) ../.vscode
 
+rebuild: clean install
+
 clang:
 	clang-format -i $(SOURCES) $(HEADERS)
 
