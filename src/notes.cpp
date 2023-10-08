@@ -52,7 +52,6 @@ void Notes::LoadNotes() {
   } else {
     std::cout << "Ошибка! Не удалось открыть файл." << std::endl;
   }
-
   std::cout << std::endl;
 }
 
