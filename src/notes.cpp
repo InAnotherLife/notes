@@ -61,7 +61,7 @@ void Notes::ShowNotes() {
   }
 }
 
-std::string Notes::GetDate() {
+std::string Notes::GetDateTime() {
   std::time_t now = std::time(nullptr);
   struct std::tm* time_info = std::localtime(&now);
   std::ostringstream oss;
@@ -76,13 +76,13 @@ void Notes::CreateNote() {
   std::cin >> note.title;
   std::cout << "Введите текст заметки:" << std::endl;
   std::cin >> note.text;
-  note.date_time = GetDate();
+  note.date_time = GetDateTime();
   notes_.push_back(note);
   std::cout << "Заметка " << notes_.size() << " успешно создана." << std::endl;
   std::cout << std::endl;
 }
 
-void Notes::EditNotes() {
+void Notes::EditNote() {
   size_t notes_size = notes_.size();
   std::cout << "Всего заметок: " << notes_size << std::endl;
   std::cout << "Введите номер заметки для редактирования:" << std::endl;
@@ -104,7 +104,7 @@ void Notes::EditNotes() {
   std::cout << std::endl;
 }
 
-void Notes::DelNotes() {
+void Notes::DelNote() {
   size_t notes_size = notes_.size();
   std::cout << "Всего заметок: " << notes_size << std::endl;
   std::cout << "Введите номер заметки для удаления:" << std::endl;

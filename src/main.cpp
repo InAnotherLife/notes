@@ -19,10 +19,10 @@ int main() {
       notes.CreateNote();
     } else if (menu == 4) {
       notes.LoadNotes();
-      notes.EditNotes();
+      notes.EditNote();
     } else if (menu == 5) {
       notes.LoadNotes();
-      notes.DelNotes();
+      notes.DelNote();
     } else if (menu == 6) {
       notes.LoadNotes();
       notes.SaveNotes();
