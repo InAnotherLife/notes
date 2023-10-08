@@ -159,7 +159,8 @@ void Notes::SaveNotes() {
       for (const Note& note : notes_) {
         file << note.date_time << std::endl;
         file << note.title << std::endl;
-        file << note.text << std::endl << std::endl;
+        file << note.text << std::endl;
+        file << std::endl;
       }
       file.close();
       std::cout << "Заметки успешно сохранены в файл." << std::endl;
