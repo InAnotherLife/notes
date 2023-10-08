@@ -63,7 +63,7 @@ bool Notes::CheckReadFile() {
   bool res = true;
   if (!read_file_) {
     res = false;
-    std::cout << "Ошибка! Необходимо загрузить заметки из файла." << std::endl;
+    std::cout << "Ошибка! Загрузите заметки из файла." << std::endl;
     std::cout << std::endl;
   }
   return res;
@@ -115,7 +115,8 @@ void Notes::EditNote() {
     std::cin >> note_num;
     std::cout << "Выбрана заметка: " << note_num << std::endl;
     if (note_num == 0 || note_num > notes_amount) {
-      std::cout << "Ошибка! Недопустимый номер заметки." << std::endl;
+      std::cout << "Ошибка! Заметки с таким номером не существует."
+                << std::endl;
     } else {
       std::string title;
       std::cout << "Введите новый заголовок заметки:" << std::endl;
@@ -141,7 +142,8 @@ void Notes::DelNote() {
     std::cin >> note_num;
     std::cout << "Выбрана заметка: " << note_num << std::endl;
     if (note_num == 0 || note_num > notes_amount) {
-      std::cout << "Ошибка! Недопустимый номер заметки." << std::endl;
+      std::cout << "Ошибка! Заметки с таким номером не существует."
+                << std::endl;
     } else {
       notes_.erase(notes_.begin() + note_num - 1);
       std::cout << "Заметка " << note_num << " успешно удалена." << std::endl;
