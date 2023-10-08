@@ -19,12 +19,15 @@ install:
 	$(CC) $(SOURCES:.cpp=.o) -o $(FILENAME)
 	./$(FILENAME)
 
+uninstall:
+	rm -f $(FILENAME)
+
 clean:
-	rm -rf *.o *.a a.out *.gch $(FILENAME) ../.vscode
+	rm -rf *.o *.a a.out *.gch ../.vscode
 
 rebuild: clean install
 
-clang:
+clang-format:
 	clang-format -i $(SOURCES) $(HEADERS)
 
 linter:
