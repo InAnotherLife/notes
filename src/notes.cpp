@@ -106,18 +106,28 @@ void Notes::CreateNote() {
   }
 }
 
+void Notes::ShowNotesAmount() {
+  std::cout << "Всего заметок: " << notes_.size() << std::endl;
+}
+
+bool Notes::CheckNoteNum(size_t note_num) {
+  bool res = true;
+  if (note_num == 0 || note_num > notes_.size()) {
+    res = false;
+    std::cout << "Ошибка! Заметки с таким номером не существует." << std::endl;
+    std::cout << std::endl;
+  }
+  return res;
+}
+
 void Notes::EditNote() {
   if (CheckReadFile()) {
-    size_t notes_amount = notes_.size();
-    std::cout << "Всего заметок: " << notes_amount << std::endl;
+    ShowNotesAmount();
     std::cout << "Введите номер заметки для редактирования:" << std::endl;
     size_t note_num;
     std::cin >> note_num;
     std::cout << "Выбрана заметка: " << note_num << std::endl;
-    if (note_num == 0 || note_num > notes_amount) {
-      std::cout << "Ошибка! Заметки с таким номером не существует."
-                << std::endl;
-    } else {
+    if (CheckNoteNum(note_num)) {
       std::string title;
       std::cout << "Введите новый заголовок заметки:" << std::endl;
       std::cin >> title;
@@ -128,27 +138,23 @@ void Notes::EditNote() {
       notes_[note_num - 1].text = text;
       std::cout << "Заметка " << note_num << " успешно отредактирована."
                 << std::endl;
+      std::cout << std::endl;
     }
-    std::cout << std::endl;
   }
 }
 
 void Notes::DelNote() {
   if (CheckReadFile()) {
-    size_t notes_amount = notes_.size();
-    std::cout << "Всего заметок: " << notes_amount << std::endl;
+    ShowNotesAmount();
     std::cout << "Введите номер заметки для удаления:" << std::endl;
     size_t note_num;
     std::cin >> note_num;
     std::cout << "Выбрана заметка: " << note_num << std::endl;
-    if (note_num == 0 || note_num > notes_amount) {
-      std::cout << "Ошибка! Заметки с таким номером не существует."
-                << std::endl;
-    } else {
+    if (CheckNoteNum(note_num)) {
       notes_.erase(notes_.begin() + note_num - 1);
       std::cout << "Заметка " << note_num << " успешно удалена." << std::endl;
+      std::cout << std::endl;
     }
-    std::cout << std::endl;
   }
 }
 

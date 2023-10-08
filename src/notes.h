@@ -27,6 +27,8 @@ class Notes {
   bool CheckReadFile();
   void ShowNotes();
   void CreateNote();
+  void ShowNotesAmount();
+  bool CheckNoteNum(size_t note_num);
   void EditNote();
   void DelNote();
   void SaveNotes();
