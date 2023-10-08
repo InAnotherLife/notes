@@ -5,20 +5,20 @@ CFLAGS=-Wall -Werror -Wextra -std=c++17
 
 OS=$(shell uname -s)
 ifeq ($(OS),Darwin)
-	PROJECT=notes.app
+	FILENAME=notes.app
 else
-	PROJECT=notes
+	FILENAME=notes
 endif
 
 all: install
 
 install:
 	$(CC) $(CFLAGS) -c $(SOURCES)
-	$(CC) $(SOURCES:.cpp=.o) -o $(PROJECT)
-	./$(PROJECT)
+	$(CC) $(SOURCES:.cpp=.o) -o $(FILENAME)
+	./$(FILENAME)
 
 clean:
-	rm -rf *.o *.a a.out *.gch $(OUTFILENAME) ../.vscode
+	rm -rf *.o *.a a.out *.gch $(FILENAME) ../.vscode
 
 clang:
 	clang-format -i $(SOURCES) $(HEADERS)
