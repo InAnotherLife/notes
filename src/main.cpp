@@ -21,8 +21,8 @@ int main() {
     } else if (menu == 5) {
       notes->SaveNotes();
     } else if (menu == 0) {
-      delete notes;
       std::cout << "Выход из программы." << std::endl;
+      delete notes;
       exit(0);
     } else {
       std::cout << "Ошибка! Недопустимый пункт меню." << std::endl;
