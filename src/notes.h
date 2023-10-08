@@ -22,9 +22,9 @@ class Notes {
   Notes() : read_file_(false){};
   ~Notes() { notes_.clear(); };
   void ShowMenu();
-  void ValidateFile(const size_t notes_amount);
+  void ValidateFile(const size_t amount_notes);
   void LoadNotes();
-  bool CheckNotesAmount();
+  bool CheckAmountNotes();
   void ShowNotes();
   void CreateNote();
   bool CheckNoteNum(const size_t note_num);
