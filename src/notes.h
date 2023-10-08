@@ -22,6 +22,7 @@ class Notes {
   Notes() : read_file_(false){};
   ~Notes() { notes_.clear(); };
   void ShowMenu();
+  void ValidateFile();
   void LoadNotes();
   bool CheckReadFile();
   void ShowNotes();
@@ -33,6 +34,7 @@ class Notes {
  private:
   std::vector<Note> notes_;
   bool read_file_;
+  std::string file_size_;
   std::string file_name_ = "notes.txt";
   std::string GetDateTime();
 };

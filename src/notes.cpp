@@ -14,6 +14,17 @@ void Notes::ShowMenu() {
   std::cout << std::endl;
 }
 
+void Notes::ValidateFile() {
+  if (notes_.empty()) {
+    std::cout << "Ошибка! Файл с заметками пустой." << std::endl;
+  } else if (std::atoi(file_size_.c_str()) != notes_.size()) {
+    std::cout << "Ошибка! Файл с заметками поврежден." << std::endl;
+  } else {
+    read_file_ = true;
+    std::cout << "Заметки успешно загружены из файла." << std::endl;
+  }
+}
+
 void Notes::LoadNotes() {
   if (!read_file_) {
     std::ifstream file(file_name_);
@@ -21,6 +32,7 @@ void Notes::LoadNotes() {
       Note note;
       std::string line;
       size_t line_count = 0;
+      std::getline(file, file_size_);
       while (std::getline(file, line)) {
         if (!line.empty()) {
           line_count++;
@@ -36,12 +48,7 @@ void Notes::LoadNotes() {
         }
       }
       file.close();
-      if (notes_.empty()) {
-        std::cout << "Ошибка! Файл с заметками пустой." << std::endl;
-      } else {
-        std::cout << "Заметки успешно загружены из файла." << std::endl;
-      }
-      read_file_ = true;
+      ValidateFile();
     } else {
       std::cout << "Ошибка! Не удалось открыть файл." << std::endl;
     }
@@ -144,6 +151,8 @@ void Notes::SaveNotes() {
   if (CheckReadFile()) {
     std::ofstream file(file_name_);
     if (file.is_open()) {
+      file << notes_.size() << std::endl;
+      file << std::endl;
       for (const Note& note : notes_) {
         file << note.date_time << std::endl;
         file << note.title << std::endl;
