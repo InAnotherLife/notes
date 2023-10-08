@@ -17,7 +17,8 @@ void Notes::ShowMenu() {
 void Notes::ValidateFile() {
   if (notes_.empty()) {
     std::cout << "Ошибка! Файл с заметками пустой." << std::endl;
-  } else if (std::atoi(file_size_.c_str()) != notes_.size()) {
+  } else if (static_cast<size_t>(std::atoi(file_size_.c_str())) !=
+             notes_.size()) {
     std::cout << "Ошибка! Файл с заметками поврежден." << std::endl;
   } else {
     read_file_ = true;

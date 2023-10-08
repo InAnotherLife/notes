@@ -1,24 +1,20 @@
 CC=g++
-PROJECT=notes
 SOURCES=notes.cpp main.cpp
 HEADERS=notes.h
-OBJECTS=notes.o main.o
 CFLAGS=-Wall -Werror -Wextra -std=c++17
 
 OS=$(shell uname -s)
 ifeq ($(OS),Darwin)
-	CHECKFLAGS=-lgtest
-	OUTFILENAME=notes.app
+	PROJECT=notes.app
 else
-	CHECKFLAGS=-lgtest -lpthread -lrt -lm -lsubunit -ldl
-	OUTFILENAME=notes
+	PROJECT=notes
 endif
 
 all: install
 
 install:
-	$(CC) -c $(SOURCES)
-	$(CC) -o $(PROJECT) $(OBJECTS)
+	$(CC) $(CFLAGS) -c $(SOURCES)
+	$(CC) $(SOURCES:.cpp=.o) -o $(PROJECT)
 	./$(PROJECT)
 
 clean:
