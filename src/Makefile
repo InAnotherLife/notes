@@ -6,14 +6,16 @@ CFLAGS=-Wall -Werror -Wextra -std=c++17
 OS=$(shell uname -s)
 ifeq ($(OS),Darwin)
 	FILENAME=notes.app
+	LDFLAGS=
 else
 	FILENAME=notes
+	LDFLAGS=-lrt -lm -ldl
 endif
 
 all: install
 
 install:
-	$(CC) $(CFLAGS) -c $(SOURCES)
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $(SOURCES)
 	$(CC) $(SOURCES:.cpp=.o) -o $(FILENAME)
 	./$(FILENAME)
 

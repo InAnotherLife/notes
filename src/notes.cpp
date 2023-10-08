@@ -53,8 +53,10 @@ void Notes::LoadNotes() {
     } else {
       std::cout << "Ошибка! Не удалось открыть файл." << std::endl;
     }
-    std::cout << std::endl;
+  } else {
+    std::cout << "Ошибка! Заметки уже загружены из файла." << std::endl;
   }
+  std::cout << std::endl;
 }
 
 bool Notes::CheckReadFile() {
