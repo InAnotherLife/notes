@@ -20,7 +20,7 @@ struct Note {
 class Notes {
  public:
   Notes() : read_file_(false){};
-  ~Notes() { notes_.clear(); };
+  ~Notes(){};
   void ShowMenu();
   void ValidateFile(const size_t amount_notes);
   void LoadNotes();
