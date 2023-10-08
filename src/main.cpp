@@ -3,7 +3,6 @@
 int main() {
   std::cout << "Программа \"Заметки\"" << std::endl;
   std::cout << std::endl;
-  // my::Notes notes;
   my::Notes* notes = new my::Notes();
   notes->LoadNotes();
   size_t menu;
