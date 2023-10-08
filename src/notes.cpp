@@ -15,9 +15,10 @@ void Notes::ShowMenu() {
 
 void Notes::ValidateFile() {
   if (notes_.empty()) {
-    std::cout << "Ошибка! Файл с заметками пустой." << std::endl;
+    std::cout << "Ошибка! Заметки отсутствуют. Создайте заметку." << std::endl;
   } else if (static_cast<size_t>(std::atoi(file_size_.c_str())) !=
              notes_.size()) {
+    notes_.clear();
     std::cout << "Ошибка! Файл с заметками поврежден." << std::endl;
   } else {
     read_file_ = true;
@@ -26,50 +27,47 @@ void Notes::ValidateFile() {
 }
 
 void Notes::LoadNotes() {
-  if (!read_file_) {
-    std::ifstream file(file_name_);
-    if (file.is_open()) {
-      Note note;
-      std::string line;
-      size_t line_count = 0;
-      std::getline(file, file_size_);
-      while (std::getline(file, line)) {
-        if (!line.empty()) {
-          line_count++;
-          if (line_count == 1) {
-            note.date_time = line;
-          } else if (line_count == 2) {
-            note.title = line;
-          } else if (line_count == 3) {
-            note.text = line;
-            line_count = 0;
-            notes_.push_back(note);
-          }
+  std::ifstream file(file_name_);
+  if (file.is_open()) {
+    Note note;
+    std::string line;
+    size_t line_count = 0;
+    std::getline(file, file_size_);
+    while (std::getline(file, line)) {
+      if (!line.empty()) {
+        line_count++;
+        if (line_count == 1) {
+          note.date_time = line;
+        } else if (line_count == 2) {
+          note.title = line;
+        } else if (line_count == 3) {
+          note.text = line;
+          line_count = 0;
+          notes_.push_back(note);
         }
       }
-      file.close();
-      ValidateFile();
-    } else {
-      std::cout << "Ошибка! Не удалось открыть файл." << std::endl;
     }
+    file.close();
+    ValidateFile();
   } else {
-    std::cout << "Ошибка! Заметки уже загружены из файла." << std::endl;
+    std::cout << "Ошибка! Не удалось открыть файл." << std::endl;
   }
+
   std::cout << std::endl;
 }
 
-bool Notes::CheckReadFile() {
+bool Notes::CheckNotesAmount() {
   bool res = true;
-  if (!read_file_) {
+  if (notes_.empty()) {
     res = false;
-    std::cout << "Ошибка! Загрузите заметки из файла." << std::endl;
+    std::cout << "Ошибка! Заметки отсутствуют. Создайте заметку." << std::endl;
     std::cout << std::endl;
   }
   return res;
 }
 
 void Notes::ShowNotes() {
-  if (CheckReadFile()) {
+  if (CheckNotesAmount() && read_file_) {
     std::cout << std::endl;
     for (size_t i = 0; i < notes_.size(); i++) {
       std::cout << "Заметка " << i + 1 << std::endl;
@@ -91,18 +89,16 @@ std::string Notes::GetDateTime() {
 }
 
 void Notes::CreateNote() {
-  if (CheckReadFile()) {
-    Note note;
-    std::cout << "Введите заголовок заметки:" << std::endl;
-    std::cin >> note.title;
-    std::cout << "Введите текст заметки:" << std::endl;
-    std::cin >> note.text;
-    note.date_time = GetDateTime();
-    notes_.push_back(note);
-    std::cout << "Заметка " << notes_.size() << " успешно создана."
-              << std::endl;
-    std::cout << std::endl;
-  }
+  read_file_ = true;
+  Note note;
+  std::cout << "Введите заголовок заметки:" << std::endl;
+  std::cin >> note.title;
+  std::cout << "Введите текст заметки:" << std::endl;
+  std::cin >> note.text;
+  note.date_time = GetDateTime();
+  notes_.push_back(note);
+  std::cout << "Заметка " << notes_.size() << " успешно создана." << std::endl;
+  std::cout << std::endl;
 }
 
 bool Notes::CheckNoteNum(size_t note_num) {
@@ -116,7 +112,7 @@ bool Notes::CheckNoteNum(size_t note_num) {
 }
 
 void Notes::EditNote() {
-  if (CheckReadFile()) {
+  if (CheckNotesAmount() && read_file_) {
     std::cout << "Всего заметок: " << notes_.size() << std::endl;
     std::cout << "Введите номер заметки для редактирования:" << std::endl;
     size_t note_num;
@@ -139,7 +135,7 @@ void Notes::EditNote() {
 }
 
 void Notes::DelNote() {
-  if (CheckReadFile()) {
+  if (CheckNotesAmount() && read_file_) {
     std::cout << "Всего заметок: " << notes_.size() << std::endl;
     std::cout << "Введите номер заметки для удаления:" << std::endl;
     size_t note_num;
@@ -154,7 +150,7 @@ void Notes::DelNote() {
 }
 
 void Notes::SaveNotes() {
-  if (CheckReadFile()) {
+  if (CheckNotesAmount()) {
     std::ofstream file(file_name_);
     if (file.is_open()) {
       file << notes_.size() << std::endl;
