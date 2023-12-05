@@ -1,0 +1,22 @@
+name: C/C++ CI
+
+on: push
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install utilities
+      run: sudo apt-get install -y cppcheck && sudo apt-get install -y clang-format 
+
+    - name: Run cppcheck
+      run: make cppcheck
+
+    - name: Run linter
+      run: make linter
+
+    - name: Run tests
+      run: make tests
