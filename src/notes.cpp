@@ -16,10 +16,11 @@ void Notes::ShowMenu() {
 
 // Проверка файла с заметками на валидность, результат проверки выводится в
 // консоль
-void Notes::ValidateFile(const size_t amount_notes) {
+void Notes::ValidateFile() {
+  read_file_ = false;
   if (notes_.empty()) {
     std::cout << "Ошибка! Заметки отсутствуют. Создайте заметку." << std::endl;
-  } else if (amount_notes != notes_.size()) {
+  } else if (StringToInt(amount_notes_) != notes_.size()) {
     notes_.clear();
     std::cout << "Ошибка! Файл с заметками поврежден. Создайте заметку."
               << std::endl;
@@ -30,11 +31,17 @@ void Notes::ValidateFile(const size_t amount_notes) {
   std::cout << std::endl;
 }
 
+// Преобразует строку в целое число
+size_t Notes::StringToInt(std::string str) {
+  return static_cast<size_t>(std::atoi(str.c_str()));
+}
+
 // Загрузка заметок из файла. Если файл открывается, то происходит построчное
 // чтение файла. Если файл не удается открыть, то выбрасывается исключение.
 // Первая цифра в файле - общее количество заметок.
 // Каждая заметка состоит из трех строк: даты и времени, заголовка, текста.
 void Notes::LoadNotes() {
+  notes_.clear();
   std::ifstream file;
   file.open(file_name_);
   if (!file.is_open())
@@ -43,8 +50,7 @@ void Notes::LoadNotes() {
   Note note;
   std::string line;
   size_t line_count = 0;
-  std::string amount_notes;
-  std::getline(file, amount_notes);
+  std::getline(file, amount_notes_);
   while (std::getline(file, line)) {
     if (!line.empty()) {
       line_count++;
@@ -60,7 +66,6 @@ void Notes::LoadNotes() {
     }
   }
   file.close();
-  ValidateFile(static_cast<size_t>(std::atoi(amount_notes.c_str())));
 }
 
 // Проверка наличия заметок в векторе notes_. Если вектор пустой, то выводится

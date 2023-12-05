@@ -26,13 +26,13 @@ uninstall:
 	rm -f $(FILENAME)
 
 clean:
-	rm -f *.o *.a a.out *.gch
+	rm -f *.o *.a a.out *.gch $(TESTNAME)
 	rm -rf ../.vscode
 
 rebuild: clean install
 
 tests:
-	$(CC) $(CFLAGS) $(LDFLAGS) -c notes.cpp tests.cpp
+	$(CC) $(CFLAGS) $(LDFLAGS) -c notes.cpp ../tests/tests.cpp
 	$(CC) notes.o tests.o $(TESTFLAGS) -o $(TESTNAME)
 	./$(TESTNAME)
 

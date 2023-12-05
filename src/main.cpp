@@ -8,6 +8,7 @@ int main() {
   std::unique_ptr<my::Notes> notes = std::make_unique<my::Notes>();
   try {
     notes->LoadNotes();
+    notes->ValidateFile();
   } catch (const std::runtime_error &error) {
     std::cout << error.what() << std::endl;
   }
