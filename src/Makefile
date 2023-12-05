@@ -2,14 +2,17 @@ CC=g++
 SOURCES=notes.cpp main.cpp
 HEADERS=notes.h
 CFLAGS=-Wall -Werror -Wextra -std=c++17
+TESTNAME=tests
 
 OS=$(shell uname -s)
 ifeq ($(OS),Darwin)
 	FILENAME=notes.app
 	LDFLAGS=
+	TESTFLAGS=-lgtest
 else
 	FILENAME=notes
 	LDFLAGS=-lrt -lm -ldl
+	TESTFLAGS=-lgtest -lpthread -lsubunit
 endif
 
 all: install
@@ -27,6 +30,11 @@ clean:
 	rm -rf ../.vscode
 
 rebuild: clean install
+
+tests:
+	$(CC) $(CFLAGS) $(LDFLAGS) -c notes.cpp tests.cpp
+	$(CC) notes.o tests.o $(TESTFLAGS) -o $(TESTNAME)
+	./$(TESTNAME)
 
 clang-format:
 	clang-format -i $(SOURCES) $(HEADERS)
