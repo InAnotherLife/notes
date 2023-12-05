@@ -4,6 +4,8 @@ https://github.com/InAnotherLife/notes
 
 https://t.me/JohnWooooo
 
+[![C/C++ CI](https://github.com/InAnotherLife/notes/actions/workflows/main.yml/badge.svg)](https://github.com/InAnotherLife/notes/actions/workflows/main.yml)
+
 ## О проекте
 Приложение "Заметки" разработано на языке С++ стандарта C++17. Код программы находится в папке src.\
 Приложение имеет консольный интерфейс.

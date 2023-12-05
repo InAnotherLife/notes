@@ -23,7 +23,7 @@ class Notes {
   ~Notes(){};
   void ShowMenu();
   void ValidateFile();
-  size_t StringToInt(std::string str);
+  size_t StringToInt(const std::string& str);
   void LoadNotes();
   bool CheckAmountNotes();
   void ShowNotes();
@@ -33,7 +33,7 @@ class Notes {
   void DelNote();
   void SaveNotes();
   // Для тестов
-  void SetFilename(std::string file_name) { file_name_ = file_name; }
+  void SetFilename(const std::string& file_name) { file_name_ = file_name; }
   size_t GetAmountNotes() { return notes_.size(); }
   bool GetReadfile() { return read_file_; }
 

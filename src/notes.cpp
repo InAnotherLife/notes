@@ -32,7 +32,7 @@ void Notes::ValidateFile() {
 }
 
 // Преобразует строку в целое число
-size_t Notes::StringToInt(std::string str) {
+size_t Notes::StringToInt(const std::string& str) {
   return static_cast<size_t>(std::atoi(str.c_str()));
 }
 

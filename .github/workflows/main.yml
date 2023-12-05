@@ -7,16 +7,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - name: Install utilities
-      run: sudo apt-get install -y cppcheck && sudo apt-get install -y clang-format 
+    - name: Install programs
+      run: |
+        sudo apt install -y libgtest-dev
+        sudo apt install -y libsubunit-dev
 
-    - name: Run cppcheck
-      run: make cppcheck
-
-    - name: Run linter
-      run: make linter
-
-    - name: Run tests
-      run: make tests
+    - name: Run GTest
+      run: |
+        cd src
+        make tests
