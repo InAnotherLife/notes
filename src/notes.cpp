@@ -27,42 +27,40 @@ void Notes::ValidateFile(const size_t amount_notes) {
     read_file_ = true;
     std::cout << "Заметки успешно загружены из файла." << std::endl;
   }
+  std::cout << std::endl;
 }
 
 // Загрузка заметок из файла. Если файл открывается, то происходит построчное
-// чтение файла. Если файл не удается открыть, то выводится сообщение об
-// ошибке.
+// чтение файла. Если файл не удается открыть, то выбрасывается исключение.
 // Первая цифра в файле - общее количество заметок.
 // Каждая заметка состоит из трех строк: даты и времени, заголовка, текста.
 void Notes::LoadNotes() {
-  std::ifstream file(file_name_);
-  if (file.is_open()) {
-    Note note;
-    std::string line;
-    size_t line_count = 0;
-    std::string amount_notes;
-    std::getline(file, amount_notes);
-    while (std::getline(file, line)) {
-      if (!line.empty()) {
-        line_count++;
-        if (line_count == 1) {
-          note.date_time = line;
-        } else if (line_count == 2) {
-          note.title = line;
-        } else if (line_count == 3) {
-          note.text = line;
-          line_count = 0;
-          notes_.push_back(note);
-        }
+  std::ifstream file;
+  file.open(file_name_);
+  if (!file.is_open())
+    throw std::runtime_error(
+        "Ошибка! Не удалось открыть файл. Создайте заметку.");
+  Note note;
+  std::string line;
+  size_t line_count = 0;
+  std::string amount_notes;
+  std::getline(file, amount_notes);
+  while (std::getline(file, line)) {
+    if (!line.empty()) {
+      line_count++;
+      if (line_count == 1) {
+        note.date_time = line;
+      } else if (line_count == 2) {
+        note.title = line;
+      } else if (line_count == 3) {
+        note.text = line;
+        line_count = 0;
+        notes_.push_back(note);
       }
     }
-    file.close();
-    ValidateFile(static_cast<size_t>(std::atoi(amount_notes.c_str())));
-  } else {
-    std::cout << "Ошибка! Не удалось открыть файл. Создайте заметку."
-              << std::endl;
   }
-  std::cout << std::endl;
+  file.close();
+  ValidateFile(static_cast<size_t>(std::atoi(amount_notes.c_str())));
 }
 
 // Проверка наличия заметок в векторе notes_. Если вектор пустой, то выводится
@@ -168,25 +166,24 @@ void Notes::DelNote() {
   }
 }
 
-// Сохранение заметок в файл. Если файл не удается открыть, то выводится
-// сообщение об ошибке.
+// Сохранение заметок в файл. Если файл не удается открыть, то
+// выбрасывается исключение.
 void Notes::SaveNotes() {
   if (CheckAmountNotes()) {
-    std::ofstream file(file_name_);
-    if (file.is_open()) {
-      file << notes_.size() << std::endl;
+    std::ofstream file;
+    file.open(file_name_);
+    if (!file.is_open())
+      throw std::runtime_error("Ошибка! Не удалось открыть файл.");
+    file << notes_.size() << std::endl;
+    file << std::endl;
+    for (const Note& note : notes_) {
+      file << note.date_time << std::endl;
+      file << note.title << std::endl;
+      file << note.text << std::endl;
       file << std::endl;
-      for (const Note& note : notes_) {
-        file << note.date_time << std::endl;
-        file << note.title << std::endl;
-        file << note.text << std::endl;
-        file << std::endl;
-      }
-      file.close();
-      std::cout << "Заметки успешно сохранены в файл." << std::endl;
-    } else {
-      std::cout << "Ошибка! Не удалось открыть файл." << std::endl;
     }
+    file.close();
+    std::cout << "Заметки успешно сохранены в файл." << std::endl;
     std::cout << std::endl;
   }
 }
