@@ -15,7 +15,7 @@ jobs:
         sudo apt install -y libgtest-dev
         sudo apt install -y libsubunit-dev
 
-    - name: Run GTest
+    - name: Run tests
       run: |
         cd src
         make tests
