@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Notes workflow
 
 on: push
 
