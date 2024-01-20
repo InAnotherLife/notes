@@ -1,6 +1,6 @@
 CC=g++
-SOURCES=notes.cpp main.cpp
-HEADERS=notes.h
+SOURCES=notes.cpp menu.cpp main.cpp
+HEADERS=notes.h menu.h
 CFLAGS=-Wall -Werror -Wextra -std=c++17
 TESTFILE=../tests/tests.cpp
 TESTNAME=tests

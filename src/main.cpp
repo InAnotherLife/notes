@@ -1,11 +1,13 @@
 #include <memory>
 
+#include "menu.h"
 #include "notes.h"
 
 int main() {
   std::cout << "Программа \"Заметки\"" << std::endl;
   std::cout << std::endl;
   std::unique_ptr<my::Notes> notes = std::make_unique<my::Notes>();
+  std::unique_ptr<my::Menu> program_menu = std::make_unique<my::Menu>();
   try {
     notes->LoadNotes();
     notes->ValidateFile();
@@ -14,7 +16,7 @@ int main() {
   }
   size_t menu;
   while (true) {
-    notes->ShowMenu();
+    program_menu->ShowMenu();
     std::cin >> menu;
     std::cout << "Выбран пункт меню: " << menu << std::endl;
     if (menu == 1) {

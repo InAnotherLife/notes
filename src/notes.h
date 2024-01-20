@@ -21,7 +21,6 @@ class Notes {
  public:
   Notes() : read_file_(false), file_name_("notes.txt"){};
   ~Notes(){};
-  void ShowMenu();
   void ValidateFile();
   size_t StringToInt(const std::string& str);
   void LoadNotes();
