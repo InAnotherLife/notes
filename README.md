@@ -4,10 +4,10 @@ https://github.com/InAnotherLife/notes
 
 https://t.me/JohnWooooo
 
-[![C/C++ CI](https://github.com/InAnotherLife/notes/actions/workflows/main.yml/badge.svg)](https://github.com/InAnotherLife/notes/actions/workflows/main.yml)
+[![Notes workflow](https://github.com/InAnotherLife/notes/actions/workflows/main.yml/badge.svg)](https://github.com/InAnotherLife/notes/actions/workflows/main.yml)
 
 ## О проекте
-Приложение "Заметки" позволяет просматривать, создавать, редактировать, удалять и сохранять в файл заметки.\
+Приложение "Заметки" позволяет просматривать, создавать, редактировать, удалять и сохранять заметки в файл.\
 Приложение разработано на языке С++ стандарта C++17. Код программы находится в папке src. Приложение имеет консольный интерфейс.\
 Код покрыт тестами. Для тестирования используется библиотека Google Test.
 
